@@ -1,6 +1,5 @@
 <a id="readme-top"></a>
-Olaide Oyelade
-[![Home][contributors-shield]][contributors-url]
+[Home](https://olaideoyelade.github.io/)
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
