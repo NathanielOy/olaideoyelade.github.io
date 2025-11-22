@@ -1,97 +1,81 @@
+<header>
+  <title>Olaide Oyelade Profile</title>
+</header>
+  
 <a id="readme-top"></a>
-[Home](https://olaideoyelade.github.io/)
-[Lab](docs/Lab.md)
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![Unlicense License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
-<title>Olaide Oyelade Profile</title>
+[![Home][forks-shield]][home-url]
+[![Lab][stars-shield]][lab-url]
+[![Updates][issues-shield]][updates-url]
+[![Teaching][license-shield]][teacing-url]
+[![Research][license-shield]][research-url]
+[![Publications][license-shield]][publications-url]
+[![Contact][license-shield]][contact-url]
+
 <div class="container">
   <div class="row">
     <div class="col-3-sm ">
         <div align="center">
-          ![Profile picture.](https://myoctocat.com/assets/images/base-octocat.svg)
+          <!-- ABOUT THE PROJECT -->
+          ## Olaide Oyelade
+          ![Profile picture](https://myoctocat.com/assets/images/base-octocat.svg)
         </div>
     </div>
     <div class="col-9-sm">
-      One of three columns
+         <br />
+          <div align="center">
+            <a href="https://github.com/othneildrew/Best-README-Template">
+              <img src="images/logo.png" alt="Logo" width="80" height="80">
+            </a>
+            
+            <h3 align="center">Best-README-Template</h3>
+          
+            <p align="center">
+              An awesome README template to jumpstart your projects!
+              <br />
+              <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+              <br />
+              <br />
+              <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+              &middot;
+              <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+              &middot;
+              <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+            </p>
+          </div>
+
+          <!-- TABLE OF CONTENTS -->
+          <details>
+            <summary>Table of Contents</summary>
+            <ol>
+              <li>
+                <a href="#about-the-project">About The Project</a>
+                <ul>
+                  <li><a href="#built-with">Built With</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#getting-started">Getting Started</a>
+                <ul>
+                  <li><a href="#prerequisites">Prerequisites</a></li>
+                  <li><a href="#installation">Installation</a></li>
+                </ul>
+              </li>
+              <li><a href="#usage">Usage</a></li>
+              <li><a href="#roadmap">Roadmap</a></li>
+              <li><a href="#contributing">Contributing</a></li>
+              <li><a href="#license">License</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><a href="#acknowledgments">Acknowledgments</a></li>
+            </ol>
+          </details>
+
+
+
+
     </div>
   </div>
 </div>
-
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-  
-  <h3 align="center">Best-README-Template</h3>
-
-  <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    &middot;
-    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    &middot;
-    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
-  </p>
-</div>
-
-
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
-
-
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 ### Built With
@@ -244,19 +228,20 @@ Use this space to list resources you find helpful and would like to give credit 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
+[home-url]: https://github.com/nathanielOy/olaideoyelade/README.md
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
+[lab-url]: https://github.com/othneildrew/Best-README-Template/network/members
 [stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
+[updates-url]: https://github.com/othneildrew/Best-README-Template/stargazers
 [issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
+[teacing-url]: https://github.com/othneildrew/Best-README-Template/issues
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[research-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
+[publications-url]: https://linkedin.com/in/othneildrew
+[contact-url]: https://linkedin.com/in/othneildrew
+[profile-screenshot]: images/profile.png
+
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
