@@ -4,13 +4,13 @@
   
 <a id="readme-top"></a>
 
-[![Home][forks-shield]][home-url]
-[![Lab][stars-shield]][lab-url]
-[![Updates][issues-shield]][updates-url]
-[![Teaching][license-shield]][teacing-url]
-[![Research][license-shield]][research-url]
-[![Publications][license-shield]][publications-url]
-[![Contact][license-shield]][contact-url]
+[![Home]][home-url]
+[![Lab]][lab-url]
+[![Updates]][updates-url]
+[![Teaching]][teacing-url]
+[![Research]][research-url]
+[![Publications]][publications-url]
+[![Contact]][contact-url]
 
 <div class="container">
   <div class="row">
