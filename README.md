@@ -1,12 +1,25 @@
 <a id="readme-top"></a>
 [Home](https://olaideoyelade.github.io/)
+[Lab](docs/Lab.md)
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![Unlicense License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-
+<title>Olaide Oyelade Profile</title>
+<div class="container">
+  <div class="row">
+    <div class="col-3-sm ">
+        <div align="center">
+          ![Profile picture.](https://myoctocat.com/assets/images/base-octocat.svg)
+        </div>
+    </div>
+    <div class="col-9-sm">
+      One of three columns
+    </div>
+  </div>
+</div>
 
 <!-- PROJECT LOGO -->
 <br />
@@ -14,7 +27,7 @@
   <a href="https://github.com/othneildrew/Best-README-Template">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
-
+  
   <h3 align="center">Best-README-Template</h3>
 
   <p align="center">
