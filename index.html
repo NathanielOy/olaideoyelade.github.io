@@ -1,126 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Olaide Oyelade | Academic Profile</title>
-    <!-- Bootstrap 5 CSS -->
-    <!-- <link href="https://jsdelivr.net" rel="stylesheet"> -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+---
+title: Home
+---
+{% include headersidebar.html %}
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<div class="bg-white p-4 p-md-5 rounded shadow-sm">
+    <h1 class="mb-4">Biography</h1>
+    <p class="lead text-secondary">
+        Welcome! I am a researcher at North Carolina A&T University specializing in Artificial Intelligence, Machine Learning, and Biomedical Informatics.
+    </p>
+    <p>
+        My academic and research efforts focus on leveraging advanced generative and deep learning frameworks to solve critical challenges in healthcare and structural biology. A major pillar of my current work centers on AI-driven drug discovery, where I design computational models for targeted molecular generation and analyze complex protein-protein interactions (PPI) to identify potential therapeutic candidates and accelerate modern medicine.
+    </p>
+    <p>
+        Alongside molecular biology applications, I work extensively on algorithm optimization using bio-inspired metaheuristic search techniques and robust clustering frameworks. By engineering intelligent neural architectures and automated data-driven systems, my research bridges the gap between deep learning and clinical application—addressing vital medical domains from oncology image analysis to digital screening systems.
+    </p>
     
-    <link href="https://cdn.datatables.net/v/dt/dt-2.3.8/datatables.min.css" rel="stylesheet" integrity="sha384-1BvCnyKidMPIGQGjvMn+w+90hHBhYJtF+R7os4NX2Abe7tSxWQadHRTSH5qb559A" crossorigin="anonymous">
-    
-    <style>
-        .navbar-nav .nav-link {
-            font-weight: 500;
-        }
-    </style>
-</head>
-<body class="bg-light">
+    <h3 class="mt-5 mb-3">Key Research Highlights</h3>
+    <ul class="list-group list-group-flush mb-4">
+        <li class="list-group-item bg-transparent px-0">🎗️ <strong>Oncology Image Analysis:</strong> Designed twin convolutional networks and generative adversarial networks (GANs) dedicated to breast cancer detection and synthetic region-of-interest modeling.</li>
+        <li class="list-group-item bg-transparent px-0">💊 <strong>Drug Discovery:</strong> Leveraging molecular generation techniques to discover novel therapeutics, with active drafts under review and published work on generative frameworks for targeted drug design.</li>
+        <li class="list-group-item bg-transparent px-0">🦟 <strong>Metaheuristic Architectures:</strong> Developed and improved nature-inspired optimization models (such as Ebola optimization and dwarf mongoose optimization models) for feature engineering and complex design tasks.</li>
+        <li class="list-group-item bg-transparent px-0">📈 <strong>Clustering Frameworks:</strong> Contributed state-of-the-art comprehensive surveys and taxonomies detailing machine learning clustering methodologies.</li>
+    </ul>
+</div>
 
-    <!-- 🧭 Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">Olaide Oyelade</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="lab.html">Lab</a></li>
-                    <li class="nav-item"><a class="nav-link" href="updates.html">Updates</a></li>
-                    <li class="nav-item"><a class="nav-link" href="teaching.html">Teaching</a></li>
-                    <li class="nav-item"><a class="nav-link" href="research.html">Research</a></li>
-                    <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+{% include footer.html %}
 
-    <!-- 👤 Main Content Container -->
-    <main class="container my-5">
-        <div class="row g-5">
-            
-            <!-- Left Side: Profile Sidebar -->
-            <div class="col-md-4 text-center text-md-start">
-                <div class="card shadow-sm border-0 p-4 sticky-md-top" style="top: 90px;">
-                    <!-- Profile Image Placeholder -->
-                    <img src="images/avatarprofilepix.svg" class="rounded-circle img-fluid mx-auto d-block mb-3" alt="Olaide Oyelade" style="width: 200px; height: 200px; object-fit: cover;">
-
-                    <h2 class="h4 mb-1">Olaide Oyelade</h2>
-                    <p class="text-muted mb-3">Researcher in AI & Health Informatics</p>
-                    <p class="small text-secondary mb-0">📍 North Carolina A&T University</p>
-                    <p class="small text-secondary">✉️ onoyelade@ncat.edu</p>
-                    
-                    <hr>
-                    
-                    <div class="d-grid gap-2">
-                        <a href="https://scholar.google.com/citations?user=A3TrbcEAAAAJ" target="_blank" class="btn btn-outline-dark btn-sm">Google Scholar</a>
-                        <a href="contact.html" class="btn btn-dark btn-sm">Get in Touch</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Side: Biography & Introduction -->
-            <div class="col-md-8">
-                <div class="bg-white p-4 p-md-5 rounded shadow-sm">
-                    <h1 class="mb-4">Introduction</h1>
-                    <p class="lead text-secondary">
-                        Welcome! I am a researcher at North Carolina A&T University specializing in Artificial Intelligence, Machine Learning, and Biomedical Informatics.
-                    </p>
-                    <p>
-                        My academic and research efforts focus on leveraging advanced generative and deep learning frameworks to solve critical challenges in healthcare and structural biology. A major pillar of my current work centers on AI-driven drug discovery, where I design computational models for targeted molecular generation and analyze complex protein-protein interactions (PPI) to identify potential therapeutic candidates and accelerate modern medicine.
-                    </p>
-                    <p>
-                        Alongside molecular biology applications, I work extensively on algorithm optimization using bio-inspired metaheuristic search techniques and robust clustering frameworks. By engineering intelligent neural architectures and automated data-driven systems, my research bridges the gap between deep learning and clinical application—addressing vital medical domains from oncology image analysis to digital screening systems.
-                    </p>
-
-                    <!-- Research Interests Section -->
-                    <h3 class="mt-5 mb-3">Research Focus Areas</h3>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled">
-                                <li class="mb-2">🧠 <strong>Artificial Intelligence</strong></li>
-                                <li class="mb-2">💻 <strong>Machine Learning Applications</strong></li>
-                                <li class="mb-2">⚙️ <strong>Algorithm Optimization</strong></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled">
-                                <li class="mb-2">🖼️ <strong>Medical & Digital Imaging</strong></li>
-                                <li class="mb-2">🏥 <strong>Health Informatics</strong></li>
-                                <li class="mb-2">🧬 <strong>Biomedical Informatics</strong></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Highlighted Contributions Section -->
-                    <h3 class="mt-5 mb-3">Key Research Highlights</h3>
-                    <ul class="list-group list-group-flush mb-4">
-                        <li class="list-group-item bg-transparent px-0">🎗️ <strong>Oncology Image Analysis:</strong> Designed twin convolutional networks and generative adversarial networks (GANs) dedicated to breast cancer detection and synthetic region-of-interest modeling.</li>
-                        <li class="list-group-item bg-transparent px-0">💊 <strong>Drug Discovery:</strong> Leveraging molecular generation techniques to discover novel therapeutics, with active drafts under review and published work on generative frameworks for targeted drug design.</li>
-                        <li class="list-group-item bg-transparent px-0">🦟 <strong>Metaheuristic Architectures:</strong> Developed and improved nature-inspired optimization models (such as Ebola optimization and dwarf mongoose optimization models) for feature engineering and complex design tasks.</li>
-                        <li class="list-group-item bg-transparent px-0">📈 <strong>Clustering Frameworks:</strong> Contributed state-of-the-art comprehensive surveys and taxonomies detailing machine learning clustering methodologies.</li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <!-- 🌐 Bootstrap 5 JS Bundle -->
-    <!-- Bootstrap 5 JavaScript Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-<!-- jQuery Core File (Required by DataTables Engine) -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-
-<!-- DataTables Core Engine -->
-<script src="https://cdn.datatables.net/v/dt/dt-2.3.8/datatables.min.js" integrity="sha384-kjkli48Tmhwhaghq0IIRm8gFmMdnihfu1ywAOyyGWYMsoZZi/6AX2fWzpsqahoFw" crossorigin="anonymous"></script>
-
-</html>
