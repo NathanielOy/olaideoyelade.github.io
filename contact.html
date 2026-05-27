@@ -1,0 +1,84 @@
+---
+title: Contact
+---
+{% include header.html %}
+
+<div class="bg-white p-4 p-md-5 rounded shadow-sm">
+    <h1 class="mb-4">Get in Touch</h1>
+    <p class="lead text-secondary mb-5">
+        Have questions about our research, open positions at the BIADD Lab, or potential academic collaborations? Drop a message below.
+    </p>
+
+    <div class="row g-5">
+        <!-- Contact Information Sidebar -->
+        <div class="col-md-5">
+            <div class="p-4 bg-light rounded shadow-sm border-0 mb-4">
+                <h4 class="h5 mb-3 text-dark fw-bold">📍 Office Coordinates</h4>
+                <p class="text-secondary small lh-base mb-0">
+                    <strong>Department of Computer Systems Technology (CST)</strong><br>
+                    College of Science and Technology<br>
+                    North Carolina A&T State University<br>
+                    Greensboro, NC 27411, USA
+                </p>
+            </div>
+
+            <div class="p-4 bg-light rounded shadow-sm border-0 mb-4">
+                <h4 class="h5 mb-3 text-dark fw-bold">✉️ Direct Correspondence</h4>
+                <p class="text-secondary small mb-1">
+                    <strong>Institutional Email:</strong><br>
+                    <a href="mailto:onoyelade@ncat.edu" class="link-dark">onoyelade@ncat.edu</a>
+                </p>
+                <p class="text-secondary small mb-0">
+                    <em>For expedited filtering, please prefix subject lines with "[BIADD]" or "[Biosecurity]".</em>
+                </p>
+            </div>
+            
+            <div class="p-4 bg-light rounded shadow-sm border-0">
+                <h4 class="h5 mb-3 text-dark fw-bold">⏱️ Office Hours</h4>
+                <p class="text-secondary small mb-0">
+                    Available by appointment only. Please review listed schedules if currently enrolled in CST courses.
+                </p>
+            </div>
+        </div>
+
+        <!-- Interactive Message Form -->
+        <div class="col-md-7">
+            <h4 class="h5 mb-4 text-dark fw-bold">📨 Send an Inquiry</h4>
+            
+            <!-- Adjust standard action attributes later when configuring backend handlers like Formspree -->
+            <form action="#" method="POST">
+                <div class="mb-3">
+                    <label for="callerName" class="form-label small fw-semibold text-secondary">Your Full Name</label>
+                    <input type="text" class="form-control" id="callerName" required placeholder="Dr. Jane Doe">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="callerEmail" class="form-label small fw-semibold text-secondary">Email Address</label>
+                    <input type="email" class="form-control" id="callerEmail" required placeholder="name@institution.edu">
+                </div>
+
+                <div class="mb-3">
+                    <label for="callerSubject" class="form-label small fw-semibold text-secondary">Inquiry Classification</label>
+                    <select class="form-select" id="callerSubject">
+                        <option selected disabled>Choose classification type...</option>
+                        <option value="BIADD">BIADD Research / Collaborations</option>
+                        <option value="Biosecurity">Biosecurity Core Vulnerabilities Initiative</option>
+                        <option value="Teaching">Instruction / Course Inquiries</option>
+                        <option value="Other">General Professional Inquiries</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="callerMessage" class="form-label small fw-semibold text-secondary">Message Text</label>
+                    <textarea class="form-control" id="callerMessage" rows="5" required placeholder="Draft your detailed inquiry message here..."></textarea>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-dark">Transmit Secure Message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include footer.html %}
