@@ -1,0 +1,209 @@
+---
+title: Research
+---
+{% include headersidebar.html %}
+
+<div class="bg-white p-4 p-md-5 rounded shadow-sm">
+    <!-- Back to Research Link -->
+    <div class="mb-4">
+        <a href="research.html" class="text-decoration-none text-muted small">← Back to Research Products</a>
+    </div>
+
+    <!-- App Header -->
+    <div class="border-bottom pb-3 mb-5">
+        <div class="d-flex align-items-center gap-3">
+            <span class="fs-1">🔬</span>
+            <div>
+                <h1 class="h2 mb-1 fw-bold text-dark">SlidePath-AI Portal</h1>
+                <p class="text-muted mb-0">Automated Computational Pathology Framework for H&E and IHC Whole Slide Image (WSI) Analysis</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- LEFT COLUMN: CONTROLS & FILE UPLOADS -->
+        <div class="col-lg-4">
+            <div class="card bg-light border-0 shadow-sm p-4 h-100">
+                <h3 class="h5 fw-bold mb-4 text-dark">⚙️ Analysis Controls</h3>
+                
+                <form id="slidepathForm">
+                    <!-- Model Version Selection -->
+                    <div class="mb-4">
+                        <label for="modelVersion" class="form-label small fw-semibold text-secondary">1. Select Pipeline Version</label>
+                        <select class="form-select border-2" id="modelVersion" required>
+                            <option value="v2" selected>SlidePath-V2.5 (Ensemble ViT-CNN Dual-Stain Architecture)</option>
+                            <option value="v1">SlidePath-V1.0 (Baseline Multi-Scale ResNet Topology)</option>
+                        </select>
+                    </div>
+
+                    <!-- File Upload: H&E Slide -->
+                    <div class="mb-3">
+                        <label for="uploadHe" class="form-label small fw-semibold text-secondary">2. Upload H&E Whole Slide (.svs, .tiff)</label>
+                        <input class="form-control" type="file" id="uploadHe" accept=".svs,.tiff,.png,.jpg,.jpeg">
+                        <div class="form-text small text-muted">Hematoxylin and eosin tissue architecture slide.</div>
+                    </div>
+
+                    <!-- File Upload: IHC Slide -->
+                    <div class="mb-4">
+                        <label for="uploadIhc" class="form-label small fw-semibold text-secondary">3. Upload IHC Slide (HER2 Stain)</label>
+                        <input class="form-control" type="file" id="uploadIhc" accept=".svs,.tiff,.png,.jpg,.jpeg">
+                        <div class="form-text small text-muted">Immunohistochemistry molecular profile slide.</div>
+                    </div>
+
+                    <!-- Action Button -->
+                    <div class="d-grid mt-5">
+                        <button type="button" id="analyzeBtn" class="btn btn-dark btn-lg py-2 fs-6 fw-bold">
+                            🔍 Run Whole Slide Analysis
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: MULTI-MODAL DISPLAY & METRICS -->
+        <div class="col-lg-8">
+            <!-- State 1: Empty Holding State -->
+            <div id="emptyState" class="card border-2 border-dashed h-100 d-flex flex-column align-items-center justify-content-center text-center p-5 bg-light">
+                <div class="fs-1 text-muted mb-3">🖼️</div>
+                <h4 class="h5 fw-bold text-secondary">Awaiting Diagnostic Input</h4>
+                <p class="text-muted small max-width-300">
+                    Provide your multi-modal whole slide image files and execute the processing pipeline to evaluate separate stain layers, custom neural segmentation masks, and scoring profiles.
+                </p>
+            </div>
+
+            <!-- State 2: Loading State -->
+            <div id="loadingState" class="card h-100 d-flex flex-column align-items-center justify-content-center text-center p-5 bg-white shadow-sm d-none">
+                <div class="spinner-border text-primary mb-4" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <h4 class="h5 fw-bold text-dark">Aligning Tissue Geometries...</h4>
+                <p class="text-muted small">
+                    Tiling megapixel vectors, performing stain normalization adjustments, and calculating cell membrane intensity values.
+                </p>
+            </div>
+
+            <!-- State 3: Output Display State -->
+            <div id="outputState" class="card h-100 border-0 shadow-sm p-4 p-md-4 bg-white d-none">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4 flex-wrap gap-2">
+                    <h3 class="h4 fw-bold text-primary mb-0">📊 Computational Pathology Metrics</h3>
+                    <span class="badge bg-secondary p-2" id="outputVersionBadge">SlidePath-V2.5</span>
+                </div>
+
+                <!-- SLIDE IMAGES FLEX GRID -->
+                <label class="form-label small fw-semibold text-secondary mb-2">👁️ Visual Analytics & Neural Layouts</label>
+                <div class="row g-3 mb-4">
+                    <!-- H&E Original -->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card bg-light border-0">
+                            <div class="p-2 text-center text-dark font-monospace small fw-bold border-bottom">H&E Input Slide</div>
+                            <div class="p-2 d-flex align-items-center justify-content-center bg-white" style="height: 140px;">
+                                <img src="https://wikimedia.org" class="img-fluid rounded border" style="max-height: 100%; object-fit: cover;" alt="H&E Layer">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- IHC Original -->
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card bg-light border-0">
+                            <div class="p-2 text-center text-dark font-monospace small fw-bold border-bottom">IHC Input Slide</div>
+                            <div class="p-2 d-flex align-items-center justify-content-center bg-white" style="height: 140px;">
+                                <img src="https://wikimedia.org" class="img-fluid rounded border" style="max-height: 100%; object-fit: cover;" alt="IHC Layer">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Combined Annotated Mask -->
+                    <div class="col-md-4 col-12">
+                        <div class="card border-primary bg-light">
+                            <div class="p-2 text-center text-primary font-monospace small fw-bold border-bottom bg-primary bg-opacity-10">AI Segmented Mask</div>
+                            <div class="p-2 d-flex align-items-center justify-content-center bg-white position-relative" style="height: 140px;">
+                                <img src="https://wikimedia.org" class="img-fluid rounded border border-danger filter-contrast" style="max-height: 100%; object-fit: cover; filter: hue-rotate(90deg) saturate(200%);" alt="Annotated Output">
+                                <span class="position-absolute badge bg-danger border border-light rounded-pill small" style="top: 10px; right: 10px;">Tumor Boundary</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REPORTS GRID -->
+                <div class="row g-3">
+                    <!-- Classification Report -->
+                    <div class="col-md-6">
+                        <div class="p-3 bg-light rounded border h-100">
+                            <h5 class="h6 fw-bold text-dark border-bottom pb-2 mb-2">📋 Tissue Classification Report</h5>
+                            <table class="table table-sm table-borderless small mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-secondary py-1">Diagnostic Target:</td>
+                                        <td class="fw-bold text-danger text-end py-1">Infiltrating Carcinoma</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-secondary py-1">Model Confidence:</td>
+                                        <td class="fw-bold text-dark text-end py-1">98.42%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-secondary py-1">Tumor Cellularity:</td>
+                                        <td class="text-dark text-end py-1">64.1% Area Fraction</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-secondary py-1">Mitotic Count Est.:</td>
+                                        <td class="text-dark text-end py-1">High (Grade III Profile)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- HER2 Scoring Matrix -->
+                    <div class="col-md-6">
+                        <div class="p-3 bg-light rounded border border-success bg-success bg-opacity-10 h-100">
+                            <h5 class="h6 fw-bold text-success border-bottom pb-2 mb-2">🧬 Automated HER2 Scoring Report</h5>
+                            <table class="table table-sm table-borderless small mb-0 bg-transparent">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-secondary py-1">Calculated Score:</td>
+                                        <td class="fw-bold text-success text-end py-1 fs-5">HER2 3+</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-secondary py-1">Staining Intensity:</td>
+                                        <td class="text-dark text-end py-1">Strong / Circumferential</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-secondary py-1">Membrane Coverage:</td>
+                                        <td class="text-dark text-end py-1">&gt; 10% Aligned Cells</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-secondary py-1">Clinical Indication:</td>
+                                        <td class="fw-bold text-dark text-end py-1">Positive (Amplified Status)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> <!-- Closes row g-3 (Reports Grid) -->
+
+            </div> <!-- Closes outputState -->
+        </div> <!-- Closes col-lg-8 -->
+    </div> <!-- Closes row g-4 -->
+</div> <!-- Closes main container bg-white -->
+
+<!-- ⚙️ Interactive Pipeline Controller Script -->
+<script>
+    document.getElementById('analyzeBtn').addEventListener('click', function() {
+        const selectedVersion = document.getElementById('modelVersion').value;
+        const versionLabel = selectedVersion === 'v2' ? "SlidePath-V2.5 (Ensemble)" : "SlidePath-V1.0 (Legacy)";
+        
+        // Swap display states for visualization loop
+        document.getElementById('emptyState').classList.add('d-none');
+        document.getElementById('outputState').classList.add('d-none');
+        document.getElementById('loadingState').classList.remove('d-none');
+
+        // Update badge tracker string
+        document.getElementById('outputVersionBadge').innerText = versionLabel;
+
+        // Simulate multi-gigapixel tiling compute time
+        setTimeout(() => {
+            document.getElementById('loadingState').classList.add('d-none');
+            document.getElementById('outputState').classList.remove('d-none');
+        }, 1500); // 1.5 second deep learning compilation delay
+    });
+</script>
+
+{% include footer.html %}
