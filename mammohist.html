@@ -1,0 +1,229 @@
+---
+title: Research
+---
+{% include headersidebar.html %}
+
+<div class="bg-white p-4 p-md-5 rounded shadow-sm">
+    <!-- Back to Research Link -->
+    <div class="mb-4">
+        <a href="research.html" class="text-decoration-none text-muted small">← Back to Research Products</a>
+    </div>
+
+    <!-- App Header -->
+    <div class="border-bottom pb-3 mb-5">
+        <div class="d-flex align-items-center gap-3">
+            <span class="fs-1">🎗️</span>
+            <div>
+                <h1 class="h2 mb-1 fw-bold text-dark">MammoHist-Detect Portal</h1>
+                <p class="text-muted mb-0">Multi-Modal Computer Vision Engine for Automated Mammography & Histology Abnormality Localization</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- LEFT COLUMN: DIAGNOSTIC SELECTION & FILE DROPS -->
+        <div class="col-lg-4">
+            <div class="card bg-light border-0 shadow-sm p-4 h-100">
+                <h3 class="h5 fw-bold mb-4 text-dark">⚙️ Detection Controls</h3>
+                
+                <form id="mammohistForm">
+                    <!-- Modality Selection Selector -->
+                    <div class="mb-4">
+                        <label for="imagingModality" class="form-label small fw-semibold text-secondary">1. Clinical Imaging Modality</label>
+                        <select class="form-select border-2 font-semibold text-dark" id="imagingModality" required>
+                            <option value="mammography" selected>Digital Mammography (DICOM X-Ray Track)</option>
+                            <option value="histology">Core-Needle Histology (Microscopic Tissue Track)</option>
+                        </select>
+                    </div>
+
+                    <!-- File Input Field -->
+                    <div class="mb-4">
+                        <label for="imageUpload" class="form-label small fw-semibold text-secondary">2. Upload Source Scan File</label>
+                        <input class="form-control" type="file" id="imageUpload" accept=".dcm,.png,.jpg,.jpeg,.tiff">
+                        <div class="form-text small text-muted" id="uploadHelpText">Supports medical standard DICOM files or standard image renders.</div>
+                    </div>
+
+                    <!-- Detection Confidence Slider Threshold -->
+                    <div class="mb-4">
+                        <label for="thresholdRange" class="form-label small fw-semibold text-secondary d-flex justify-content-between">
+                            <span>3. IoU Confidence Threshold</span>
+                            <span id="thresholdVal" class="text-primary fw-bold">0.75</span>
+                        </label>
+                        <input type="range" class="form-range" min="0.50" max="0.95" step="0.05" id="thresholdRange" value="0.75" oninput="document.getElementById('thresholdVal').innerText=this.value">
+                    </div>
+
+                    <!-- Execution Trigger Button -->
+                    <div class="d-grid mt-5">
+                        <button type="button" id="detectBtn" class="btn btn-dark btn-lg py-2 fs-6 fw-bold">
+                            🎯 Run Abnormality Localization
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: INTERACTIVE VISUAL DISPLAY PANELS -->
+        <div class="col-lg-8">
+            <!-- State 1: Default Empty Container -->
+            <div id="emptyState" class="card border-2 border-dashed h-100 d-flex flex-column align-items-center justify-content-center text-center p-5 bg-light">
+                <div class="fs-1 text-muted mb-3">📡</div>
+                <h4 class="h5 fw-bold text-secondary">Awaiting Patient Scan Data</h4>
+                <p class="text-muted small max-width-300">
+                    Select a target imaging modality, provide the appropriate medical scan file, and run localization to plot bounding coordinates over structural tissue lesions.
+                </p>
+            </div>
+
+            <!-- State 2: Background Loading Spinner Layout -->
+            <div id="loadingState" class="card h-100 d-flex flex-column align-items-center justify-content-center text-center p-5 bg-white shadow-sm d-none">
+                <div class="spinner-border text-danger mb-4" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <h4 class="h5 fw-bold text-dark">Parsing High-Dimensional Matrix Arrays...</h4>
+                <p class="text-muted small">
+                    Filtering noise profiles, calculating pixel-level anchor boxes, and extracting multi-scale regional features.
+                </p>
+            </div>
+
+            <!-- State 3: Production Output Display -->
+            <div id="outputState" class="card h-100 border-0 shadow-sm p-4 bg-white d-none">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4 flex-wrap gap-2">
+                    <h3 class="h4 fw-bold text-danger mb-0">🚨 Region of Interest (ROI) Detected</h3>
+                    <span class="badge bg-secondary p-2" id="outputModalityBadge">Digital Mammography</span>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Bounding Box Frame Component -->
+                    <div class="col-md-6 text-center">
+                        <label class="form-label small fw-semibold text-secondary d-block text-start mb-2">Computer Vision Boundary Overlay</label>
+                        <div class="bg-dark p-2 rounded position-relative d-flex align-items-center justify-content-center" style="height: 300px;">
+                            <!-- Simulated Dynamic Image Container -->
+                            <img id="modalityImg" src="" alt="Clinical Abnormality View" class="img-fluid h-100 rounded" style="object-fit: contain;">
+                            
+                            <!-- Programmable CSS Bounding Box Anchor -->
+                            <div class="position-absolute border border-3 border-danger bg-danger bg-opacity-10 d-flex align-items-start justify-content-start" style="top: 25%; left: 35%; width: 40%; height: 40%; box-shadow: 0 0 15px rgba(220, 53, 69, 0.6);">
+                                <span class="bg-danger text-white font-monospace small px-1 position-absolute fw-bold" style="top: -24px; left: -3px; font-size: 10px; white-space: nowrap;">
+                                    Class: Mass | Conf: <span id="labelConf">94.2%</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Clinical Metric Breakdown Grid -->
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold text-secondary mb-2">Diagnostic Predictions & Metrics</label>
+                        <div class="table-responsive mb-4">
+                            <table class="table table-sm table-bordered align-middle small mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="bg-light fw-semibold text-secondary" style="width: 50%;">Localized Abnormality</td>
+                                        <td id="metricType" class="fw-bold text-dark">Spiculated Mass / Lesion</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-light fw-semibold text-secondary">BI-RADS / Malignancy Risk</td>
+                                        <td id="metricRisk" class="fw-bold text-danger">Category 4C (High Suspicion)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-light fw-semibold text-secondary">Lesion Coordinates (ROI)</td>
+                                        <td id="metricCoords" class="text-muted font-monospace">[X: 242, Y: 189, W: 110, H: 145]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-light fw-semibold text-secondary">Pipeline Processing Time</td>
+                                        <td id="metricTime" class="text-muted">215 ms</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Automated Findings Interpretation Statement -->
+                        <div class="p-3 bg-light rounded border-start border-3 border-danger">
+                            <h5 class="h6 fw-bold text-dark mb-1">Clinical Decision Interpretation:</h5>
+                            <p id="clinicalNotes" class="small text-secondary mb-0">
+                                Model output summary notes populate dynamically inside this boundary structure.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- Closes outputState -->
+        </div> <!-- Closes col-lg-8 -->
+    </div> <!-- Closes row g-4 -->
+</div> <!-- Closes main container -->
+
+<!-- ⚙️ Interactive Modality State Router Logic -->
+<script>
+    // Structural dataset matching the two separate medical scanning streams
+    const modalityDb = {
+        mammography: {
+            badge: "Mammography Pipeline Enabled",
+            img: "https://wikimedia.org",
+            conf: "94.6%",
+            type: "Spiculated Structural Mass",
+            risk: "BI-RADS Category 4C (High Suspicion)",
+            coords: "[X: 412, Y: 320, W: 180, H: 195]",
+            time: "194 ms",
+            <script>
+    // Structural dataset matching the two separate medical scanning streams
+    const modalityDb = {
+        mammography: {
+            badge: "Mammography Pipeline Enabled",
+            img: "https://wikimedia.org",
+            conf: "94.6%",
+            type: "Spiculated Structural Mass",
+            risk: "BI-RADS Category 4C (High Suspicion)",
+            coords: "[X: 412, Y: 320, W: 180, H: 195]",
+            time: "194 ms",
+            notes: "Architectural distortion and dense borders localized inside upper-outer quadrant structures. Confirms feature alignment matching downstream diagnostic profiles."
+        },
+        histology: {
+            badge: "Histology Core-Needle Pipeline",
+            img: "https://wikimedia.org",
+            conf: "89.1%",
+            type: "Atypical Ductal Hyperplasia (ADH)",
+            risk: "High Malignancy Risk Profile Factor",
+            coords: "[X: 112, Y: 94, W: 240, H: 210]",
+            time: "248 ms",
+            notes: "Microscopic evaluation detects notable cellular crowding and nuclear pleomorphism bounds. Automated findings match high-grade intraepithelial proliferation configurations."
+        }
+    };
+
+    // Form selection dynamic tracking triggers
+    const modalitySelector = document.getElementById('imagingModality');
+    const helpText = document.getElementById('uploadHelpText');
+    
+    modalitySelector.addEventListener('change', function() {
+        if (this.value === 'mammography') {
+            helpText.innerText = "Supports medical standard DICOM files or standard image renders.";
+        } else {
+            helpText.innerText = "Supports gigapixel whole slide cuts, microscopic captures, and .tiff arrays.";
+        }
+    });
+
+    // Form submission simulation click tracking
+    document.getElementById('detectBtn').addEventListener('click', function() {
+        const activeKey = modalitySelector.value;
+        const currentData = modalityDb[activeKey];
+
+        // Route structural loading visibility frames
+        document.getElementById('emptyState').classList.add('d-none');
+        document.getElementById('outputState').classList.add('d-none');
+        document.getElementById('loadingState').classList.remove('d-none');
+
+        // Fire rendering actions following computed delay matrix
+        setTimeout(() => {
+            document.getElementById('outputModalityBadge').innerText = currentData.badge;
+            document.getElementById('modalityImg').src = currentData.img;
+            document.getElementById('labelConf').innerText = currentData.conf;
+            document.getElementById('metricType').innerText = currentData.type;
+            document.getElementById('metricRisk').innerText = currentData.risk;
+            document.getElementById('metricCoords').innerText = currentData.coords;
+            document.getElementById('metricTime').innerText = currentData.time;
+            document.getElementById('clinicalNotes').innerText = currentData.notes;
+
+            // Display finalized evaluation sheet
+            document.getElementById('loadingState').classList.add('d-none');
+            document.getElementById('outputState').classList.remove('d-none');
+        }, 1350); // 1.35 second neural layer traversal estimation block
+    });
+</script>
+
+{% include footer.html %}
