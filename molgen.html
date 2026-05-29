@@ -1,0 +1,211 @@
+---
+title: Research
+---
+{% include headersidebar.html %}
+
+<div class="bg-white p-4 p-md-5 rounded shadow-sm">
+    <!-- Back to Research Link -->
+    <div class="mb-4">
+        <a href="research.html" class="text-decoration-none text-muted small">← Back to Research Products</a>
+    </div>
+
+    <!-- App Header -->
+    <div class="border-bottom pb-3 mb-5">
+        <div class="d-flex align-items-center gap-3">
+            <span class="fs-1">💊</span>
+            <div>
+                <h1 class="h2 mb-1 fw-bold text-dark">MolGen-AI Portal</h1>
+                <p class="text-muted mb-0">Interactive Generative Engine for Targeted Molecular Design & Optimization</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- LEFT COLUMN: CONTROL PANEL -->
+        <div class="col-lg-4">
+            <div class="card bg-light border-0 shadow-sm p-4 h-100">
+                <h3 class="h5 fw-bold mb-4 text-dark">⚙️ Generation Controls</h3>
+                
+                <form id="molgenForm">
+                    <!-- Model Selection -->
+                    <div class="mb-4">
+                        <label for="modelVariant" class="form-label small fw-semibold text-secondary">1. Select Model Architecture</label>
+                        <select class="form-select border-2" id="modelVariant" required>
+                            <option value="transformer" selected>MolGen-Transformer (Target Affinity Optimization)</option>
+                            <option value="diffusion">MolGen-Diffusion (De Novo Scaffold Synthesis)</option>
+                            <option value="vae">MolGen-VAE (Latent Space Property Interpolation)</option>
+                        </select>
+                        <div class="form-text text-muted small mt-1">
+                            Different architectures prioritize either optimization speed or structural novelty.
+                        </div>
+                    </div>
+
+                    <!-- Target Pocket constraints (Visual Element) -->
+                    <div class="mb-4">
+                        <label class="form-label small fw-semibold text-secondary">2. Structural Boundary Constraints</label>
+                        <div class="form-check mb-1">
+                            <input class="form-check-input" type="checkbox" id="checkPpi" checked disabled>
+                            <label class="form-check-input-label small text-muted" for="checkPpi">
+                                Enforce PPI Pocket Alignment
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkLipinski" checked>
+                            <label class="form-check-label small text-dark" for="checkLipinski">
+                                Apply Lipinski's Rule of 5 Filter
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Action Button -->
+                    <div class="d-grid mt-5">
+                        <button type="button" id="generateBtn" class="btn btn-dark btn-lg py-2 fs-6 fw-bold">
+                            ✨ Run Molecular Generation
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: RESULTS PANEL -->
+        <div class="col-lg-8">
+            <!-- State 1: Empty State (Default) -->
+            <div id="emptyState" class="card border-2 border-dashed h-100 d-flex flex-column align-items-center justify-content-center text-center p-5 bg-light">
+                <div class="fs-1 text-muted mb-3">🧬</div>
+                <h4 class="h5 fw-bold text-secondary">Awaiting Model Execution</h4>
+                <p class="text-muted small max-width-300">
+                    Select a model architecture variation from the control panel and trigger generation to view generated properties, chemical graphics, and predictive biosecurity alignments.
+                </p>
+            </div>
+
+            <!-- State 2: Loading State (Hidden by default) -->
+            <div id="loadingState" class="card h-100 d-flex flex-column align-items-center justify-content-center text-center p-5 bg-white shadow-sm d-none">
+                <div class="spinner-border text-dark mb-4" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <h4 class="h5 fw-bold text-dark">Iterating Chemical Latent Space...</h4>
+                <p class="text-muted small">
+                    Sampling distributions, predicting binding topologies, and matching target protein-protein interactions.
+                </p>
+            </div>
+
+            <!-- State 3: Output Display State (Hidden by default) -->
+            <div id="outputState" class="card h-100 border-0 shadow-sm p-4 p-md-5 bg-white d-none">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4 flex-wrap gap-2">
+                    <h3 class="h4 fw-bold text-success mb-0">✅ Generation Success</h3>
+                    <span class="badge bg-secondary p-2" id="outputModelBadge">MolGen-Transformer</span>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Molecular Graphic Placeholder -->
+                    <div class="col-md-5 text-center">
+                        <label class="form-label small fw-semibold text-secondary d-block text-start mb-2">Predicted Structure</label>
+                        <div class="bg-light p-3 rounded border border-light d-flex align-items-center justify-content-center" style="height: 220px;">
+                            <!-- Using standard public structural diagram vectors for demonstration -->
+                            <img id="moleculeImg" src="" alt="Generated Molecule Layout" class="img-fluid" style="max-height: 100%; object-fit: contain;">
+                        </div>
+                        <div class="mt-2 text-start">
+                            <span class="small text-muted">Nomenclature:</span><br>
+                            <strong id="molName" class="text-dark">Compound-44B</strong>
+                        </div>
+                    </div>
+
+                    <!-- Metrics and Attributes -->
+                    <div class="col-md-7">
+                        <label class="form-label small fw-semibold text-secondary mb-2">Molecular Matrix & Scores</label>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered align-middle small">
+                                <tbody>
+                                    <tr>
+                                        <td class="bg-light fw-semibold text-secondary" style="width: 45%;">QED (Drug-likeness)</td>
+                                        <td id="scoreQed" class="fw-bold text-dark">0.89</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-light fw-semibold text-secondary">SA Score (Synthetic Accessibility)</td>
+                                        <td id="scoreSa" class="text-dark">2.41 <span class="text-muted font-monospace">(Lower = Easier)</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-light fw-semibold text-secondary">Predicted Docking Score</td>
+                                        <td id="scoreDocking" class="fw-bold text-danger">-8.4 kcal/mol</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-light fw-semibold text-secondary">Inference Computation Time</td>
+                                        <td id="scoreTime" class="text-muted">142 ms</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Downstream Application Profile -->
+                        <div class="mt-4 p-3 bg-light rounded border-start border-3 border-dark">
+                            <h5 class="h6 fw-bold text-dark mb-1">Target Application Area:</h5>
+                            <p id="molApp" class="small text-secondary mb-0">
+                                Target profile validation data goes here.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- SMILES String Row -->
+                    <div class="col-12 mt-4">
+                        <label class="form-label small fw-semibold text-secondary mb-1">SMILES Representation</label>
+                        <div class="input-group">
+                            <input type="text" id="smilesText" class="form-control font-monospace small bg-light" readonly value="">
+                            <button class="btn btn-outline-dark btn-sm" type="button" onclick="navigator.clipboard.writeText(document.getElementById('smilesText').value); alert('SMILES copied to clipboard!');">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ⚙️ Interactive Engine Simulation Logic -->
+<script>
+    // Structured variants catalog representing realistic scientific data points
+    const variantsDb = {
+        transformer: {name: "MolGen-Transformer Optimization Node", badge: "Transformer Framework", img: "https://wikimedia.org",  
+                      molName: "Acetylsalicylic-Derivative (BIADD-402)", qed: "0.89", sa: "1.84", docking: "-8.7 kcal/mol", 
+                      time: "128 ms", 
+                      app: "Oncology Targeted Pathway Inhibitors: Designed to interrupt downstream kinase signaling cascades in aggressive tumor tissues.",
+                      smiles: "CC(=O)OC1=CC=CC=C1C(=O)O"
+                     },
+        diffusion: {name: "MolGen-Diffusion Generative Framework",badge: "Diffusion Architecture",img: "wikimedia.org",
+                        molName: "Methylxanthine-Scaffold (BIADD-711)",qed: "0.74",sa: "2.12",docking: "-6.2 kcal/mol",
+                        time: "482 ms",
+                        app: "Central Nervous System Therapeutics: Optimized blood-brain barrier permeability markers via novel latent scaffold iteration loops.",
+                        smiles: "CN1C=NC2=C1C(=O)N(C(=O)N2C)C"
+                       },
+        vae: {name: "MolGen-VAE Latent Optimization Vector",badge: "VAE Architecture",img: "wikimedia.org",
+                  molName: "Acetaminophen-Variant (BIADD-109)",qed: "0.81",sa: "1.42",docking: "-5.9 kcal/mol",
+                  time: "84 ms",
+                  app: "Analgesic & Computational Target Mapping: Structural safety alignment matching for high-throughput baseline multi-organ screening tracks.",
+                  smiles: "CC(=O)NC1=CC=C(O)C=C1"
+                 }
+        };
+    
+  document.getElementById('generateBtn').addEventListener('click', function() {
+    const selectedKey = document.getElementById('modelVariant').value;const data = variantsDb[selectedKey];
+    // Swap UI display blocks to show animation 
+    flowdocument.getElementById('emptyState').classList.add('d-none');
+    document.getElementById('outputState').classList.add('d-none');
+    document.getElementById('loadingState').classList.remove('d-none');
+    // Simulate inference compute latency
+    setTimeout(() => {
+      // Bind simulated outputs to DOM 
+      elementsdocument.getElementById('outputModelBadge').innerText = data.badge;
+      document.getElementById('moleculeImg').src = data.img;
+      document.getElementById('molName').innerText = data.molName;
+      document.getElementById('scoreQed').innerText = data.qed;
+      document.getElementById('scoreSa').innerText = data.sa;
+      document.getElementById('scoreDocking').innerText = data.docking;
+      document.getElementById('scoreTime').innerText = data.time;
+      document.getElementById('molApp').innerText = data.app;
+      document.getElementById('smilesText').value = data.smiles;
+      // Display results 
+      containerdocument.getElementById('loadingState').classList.add('d-none');
+      document.getElementById('outputState').classList.remove('d-none');
+    }, 1200); // 1.2 second simulated model compilation delay
+});
+  
+  {% include footer.html %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        
